@@ -13,7 +13,7 @@ export const getAppControllerGetDataMockHandler = (
         info: Parameters<Parameters<typeof http.get>[1]>[0]
       ) => Promise<void> | void)
 ) => {
-  return http.get('*/api', async (info) => {
+  return http.get('*/', async (info) => {
     await delay(1000);
     if (typeof overrideResponse === 'function') {
       await overrideResponse(info);

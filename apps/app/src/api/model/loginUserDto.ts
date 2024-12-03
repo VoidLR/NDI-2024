@@ -5,4 +5,9 @@
  * OpenAPI spec version: 1.0
  */
 
-export * from './loginUserDto';
+export interface LoginUserDto {
+  /** The password of the user */
+  password: string;
+  /** The username of the user */
+  username: string;
+}

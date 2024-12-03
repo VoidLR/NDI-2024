@@ -6,8 +6,11 @@
  */
 import { useQuery } from '@tanstack/react-query';
 import type {
+  DefinedInitialDataOptions,
+  DefinedUseQueryResult,
   QueryFunction,
   QueryKey,
+  UndefinedInitialDataOptions,
   UseQueryOptions,
   UseQueryResult,
 } from '@tanstack/react-query';
@@ -17,21 +20,23 @@ import type { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
 export const appControllerGetData = (
   options?: AxiosRequestConfig
 ): Promise<AxiosResponse<void>> => {
-  return axios.get(`/api`, options);
+  return axios.get(`/`, options);
 };
 
 export const getAppControllerGetDataQueryKey = () => {
-  return [`/api`] as const;
+  return [`/`] as const;
 };
 
 export const getAppControllerGetDataQueryOptions = <
   TData = Awaited<ReturnType<typeof appControllerGetData>>,
   TError = AxiosError<unknown>
 >(options?: {
-  query?: UseQueryOptions<
-    Awaited<ReturnType<typeof appControllerGetData>>,
-    TError,
-    TData
+  query?: Partial<
+    UseQueryOptions<
+      Awaited<ReturnType<typeof appControllerGetData>>,
+      TError,
+      TData
+    >
   >;
   axios?: AxiosRequestConfig;
 }) => {
@@ -58,11 +63,69 @@ export type AppControllerGetDataQueryError = AxiosError<unknown>;
 export function useAppControllerGetData<
   TData = Awaited<ReturnType<typeof appControllerGetData>>,
   TError = AxiosError<unknown>
+>(options: {
+  query: Partial<
+    UseQueryOptions<
+      Awaited<ReturnType<typeof appControllerGetData>>,
+      TError,
+      TData
+    >
+  > &
+    Pick<
+      DefinedInitialDataOptions<
+        Awaited<ReturnType<typeof appControllerGetData>>,
+        TError,
+        TData
+      >,
+      'initialData'
+    >;
+  axios?: AxiosRequestConfig;
+}): DefinedUseQueryResult<TData, TError> & { queryKey: QueryKey };
+export function useAppControllerGetData<
+  TData = Awaited<ReturnType<typeof appControllerGetData>>,
+  TError = AxiosError<unknown>
 >(options?: {
-  query?: UseQueryOptions<
-    Awaited<ReturnType<typeof appControllerGetData>>,
-    TError,
-    TData
+  query?: Partial<
+    UseQueryOptions<
+      Awaited<ReturnType<typeof appControllerGetData>>,
+      TError,
+      TData
+    >
+  > &
+    Pick<
+      UndefinedInitialDataOptions<
+        Awaited<ReturnType<typeof appControllerGetData>>,
+        TError,
+        TData
+      >,
+      'initialData'
+    >;
+  axios?: AxiosRequestConfig;
+}): UseQueryResult<TData, TError> & { queryKey: QueryKey };
+export function useAppControllerGetData<
+  TData = Awaited<ReturnType<typeof appControllerGetData>>,
+  TError = AxiosError<unknown>
+>(options?: {
+  query?: Partial<
+    UseQueryOptions<
+      Awaited<ReturnType<typeof appControllerGetData>>,
+      TError,
+      TData
+    >
+  >;
+  axios?: AxiosRequestConfig;
+}): UseQueryResult<TData, TError> & { queryKey: QueryKey };
+
+export function useAppControllerGetData<
+  TData = Awaited<ReturnType<typeof appControllerGetData>>,
+  TError = AxiosError<unknown>
+>(options?: {
+  query?: Partial<
+    UseQueryOptions<
+      Awaited<ReturnType<typeof appControllerGetData>>,
+      TError,
+      TData
+    >
   >;
   axios?: AxiosRequestConfig;
 }): UseQueryResult<TData, TError> & { queryKey: QueryKey } {
