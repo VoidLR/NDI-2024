@@ -15,8 +15,6 @@ async function bootstrap() {
 
   // Global application module
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
-  // Setup global exchange endpoint
-  app.setGlobalPrefix('api');
 
   // Setup Swagger documentation if we are in dev mode
   if(process.env.NODE_ENV !== 'production') {

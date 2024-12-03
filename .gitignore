@@ -46,3 +46,5 @@ vite.config.*.timestamp*
 .env
 prisma/migrations
 compose.prod.yml
+
+apps/app/src/components/ui/
